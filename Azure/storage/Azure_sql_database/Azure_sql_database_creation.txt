@@ -1,0 +1,122 @@
+1.The az commands you'll run require the name of your resource group and the name of your Azure SQL logical server.
+ To save typing, run this azure configure command to specify them as default values. Replace <server-name> with the 
+name of your Azure SQL logical server. Note that depending on the blade you are on in the portal this may 
+show as a FQDN (servername.database.windows.net), but you only need the logical name without the .database.windows.net suffix.
+
+#bash script
+az configure --defaults group=Learn-f5d5805a-c8aa-49b7-9d36-cb00b691fa71 sql-server=<server-name>
+
+
+2.Run az sql db list to list all databases on your Azure SQL logical server.
+
+#bash script
+az sql db list
+
+az sql db list | jq '[.[] | {name: .name}]'      #gives database name
+
+
+4.Run this az sql db show command to get details about the Logistics database.
+
+#bash script
+az sql db show --name <database name>
+
+
+5.Run the command a second time. This time, pipe the output to
+ jq to limit output to only the name, maximum size, and status of the Logistics database.
+
+
+#bash script
+az sql db show --name Logistics | jq '{name: .name, maxSizeBytes: .maxSizeBytes, status: .status}'
+
+
+
+6.connection string
+
+
+
+#bash script
+az sql db show-connection-string --client sqlcmd --name <database name>
+
+
+output:
+"sqlcmd -S tcp:contoso-1.database.windows.net,1433 -d Logistics -U <username> -P <password> -N -l 30"
+
+
+
+7.connect to sql database
+
+
+#bash scripts
+sqlcmd -S tcp:contoso-1.database.windows.net,1433 -d Logistics -U <username> -P <password> -N -l 30
+
+
+
+-------------------------------logging in into sql database(T-sql command for Azure sql database)------------------------------------------
+
+
+
+
+1.creating a table Drivers
+
+#sql
+CREATE TABLE Drivers (DriverID int, LastName varchar(255), FirstName varchar(255), OriginCity varchar(255));
+GO
+
+
+
+2.Verify that the Drivers table exists.
+
+#sql
+
+
+SELECT name FROM sys.tables;
+GO
+
+
+
+3.insert the value
+
+
+#sql
+INSERT INTO Drivers (DriverID, LastName, FirstName, OriginCity) VALUES (123, 'Zirne', 'Laura', 'Springfield');
+GO
+
+
+
+4.Run this SELECT T-SQL statement to list the DriverID and OriginCity columns from all rows
+ in the table. This is the read operation.
+
+#sql
+SELECT DriverID, OriginCity FROM Drivers;
+GO
+
+
+
+5.Run this UPDATE T-SQL statement to change the city of origin from "Springfield" to "Boston" 
+for the driver with a DriverID of 123. This is the update operation.
+
+
+#sql
+UPDATE Drivers SET OriginCity='Boston' WHERE DriverID=123;
+GO
+SELECT DriverID, OriginCity FROM Drivers;
+GO
+
+
+6.Run this DELETE T-SQL statement to delete the record. This is the delete operation.
+
+#sql
+DELETE FROM Drivers WHERE DriverID=123;
+GO
+
+complete the course from https://docs.microsoft.com/en-us/learn/modules/provision-azure-sql-db/5-summary
+
+share your insights @https://timewithai.com/
+
+
+Thank you !!!!!!!!!!!
+
+satyajit maitra 
+your developer advocate 
+ssatyajitmaitra@gmail.com
+consultation on AI DS Cloud
