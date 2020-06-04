@@ -1,0 +1,1 @@
+gcloud sql connect rentals --user=root --quiet
