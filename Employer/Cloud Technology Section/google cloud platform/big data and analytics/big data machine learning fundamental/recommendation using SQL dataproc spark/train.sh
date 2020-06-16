@@ -1,0 +1,1 @@
+gsutil cp train_and_apply.py gs://$DEVSHELL_PROJECT_ID
