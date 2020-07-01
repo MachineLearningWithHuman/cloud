@@ -20,7 +20,7 @@ the result into bq </li>
 <li>don't try to join on non-key features</li>
 <li>use concat() to make sense of join if no join features is unique</li>
 <li>ensure deduplication</li>
-
+<h1>End</h1>
 
 
 
